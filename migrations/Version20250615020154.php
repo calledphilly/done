@@ -10,7 +10,7 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20250611145019 extends AbstractMigration
+final class Version20250615020154 extends AbstractMigration
 {
     public function getDescription(): string
     {
@@ -21,7 +21,7 @@ final class Version20250611145019 extends AbstractMigration
     {
         // this up() migration is auto-generated, please modify it to your needs
         $this->addSql(<<<'SQL'
-            ALTER TABLE article ADD updated_at DATETIME NOT NULL COMMENT '(DC2Type:datetime_immutable)'
+            ALTER TABLE notification ADD is_read TINYINT(1) NOT NULL
         SQL);
     }
 
@@ -29,7 +29,7 @@ final class Version20250611145019 extends AbstractMigration
     {
         // this down() migration is auto-generated, please modify it to your needs
         $this->addSql(<<<'SQL'
-            ALTER TABLE article DROP updated_at
+            ALTER TABLE notification DROP is_read
         SQL);
     }
 }

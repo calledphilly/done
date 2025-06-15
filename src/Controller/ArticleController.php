@@ -24,6 +24,17 @@ final class ArticleController extends AbstractController
         ]);
     }
 
+    #[Route('/admin/articles', name: 'admin_articles')]
+    public function adminIndex(ArticleRepository $articleRepository): Response
+    {
+        $articles = $articleRepository->findAll();
+
+        return $this->render('admin/articles.html.twig', [
+            'articles' => $articles,
+        ]);
+    }
+
+
     #[Route('/new', name: 'app_article_new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
