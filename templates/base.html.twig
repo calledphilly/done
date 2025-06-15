@@ -13,10 +13,20 @@
     </head>
     <body>
         <nav style="padding: 1rem; background-color: #f5f5f5;">
-            <a href="{{ path('app_profile_edit') }}" style="margin-right: 1rem;">👤 Mon profil</a>
-            <a href="{{ path('app_notifications') }}">🔔 Notifications</a>
-            <a href="{{ path('app_login') }}" style="margin-left: 1rem;">🔐 Se connecter</a>
-            <a href="{{ path('app_logout') }}" style="margin-left: 1rem;">🚪 Se déconnecter</a>
+            {% if app.user %}
+                <a href="{{ path('app_profile_edit') }}" style="margin-right: 1rem;">👤 Mon profil</a>
+                {% if unreadNotificationCount > 0 %}
+                    <a href="{{ path('app_notifications') }}">🔔 Notifications ({{ unreadNotificationCount }})</a>
+                {% endif %}
+                <a href="{{ path('app_article_index') }}" style="margin-left: 1rem;">📄 Mes articles</a>
+                <a href="{{ path('app_article_new') }}" style="margin-left: 1rem;">➕ Nouvel article</a>
+                {% if is_granted('ROLE_ADMIN') %}
+                    <a href="{{ path('app_admin_article') }}" style="margin-left: 1rem;">🛠 Articles (admin)</a>
+                {% endif %}
+                <a href="{{ path('app_logout') }}" style="margin-left: 1rem;">🚪 Se déconnecter</a>
+            {% else %}
+                <a href="{{ path('app_login') }}" style="margin-left: 1rem;">🔐 Se connecter</a>
+            {% endif %}
         </nav>
         {% block body %}{% endblock %}
     </body>
